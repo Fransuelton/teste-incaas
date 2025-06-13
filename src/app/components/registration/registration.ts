@@ -1,11 +1,48 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {FormControl, ReactiveFormsModule} from '@angular/forms'
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Mask } from '../../services/mask';
 
 @Component({
   selector: 'app-registration',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './registration.html',
 })
 export class Registration {
+  constructor(private Mask: Mask) {}
+  partsForm = new FormGroup({
+    fullName: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)+$'),
+    ]),
+    personType: new FormControl('', Validators.required),
+    cpfcnpj: new FormControl('', [
+      Validators.required,
+      Validators.pattern(
+        /^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/
+      ),
+    ]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+  });
 
+  onSubmit() {
+    if (this.partsForm.valid) {
+      console.log(this.partsForm.value);
+
+      this.partsForm.reset();
+    } else {
+      this.partsForm.markAllAsTouched();
+    }
+  }
+
+  onCpfCnpjInput(event: any) {
+    const value = event.target.value;
+    const masked = this.Mask.formatCpfCnpj(value);
+    this.partsForm.get('cpfcnpj')?.setValue(masked, { emitEvent: false });
+  }
 }
