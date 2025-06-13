@@ -19,6 +19,7 @@ export class Registration {
   successMessage: string | null = null;
 
   registeredParts: any[] = [];
+  editingIndex: number | null = null;
 
   partsForm = new FormGroup({
     fullName: new FormControl('', [
@@ -39,14 +40,18 @@ export class Registration {
     if (this.partsForm.valid) {
       const newPart = this.partsForm.value;
 
-      const storedData = localStorage.getItem('data');
-      const parts = storedData ? JSON.parse(storedData) : [];
+      const parts = this.registeredParts;
 
-      parts.push(newPart);
+      if (this.editingIndex !== null) {
+        this.registeredParts[this.editingIndex] = newPart;
+        this.successMessage = 'Parte editada com sucesso!';
+        this.editingIndex = null;
+      } else {
+        parts.push(newPart);
+        this.successMessage = 'Parte cadastrada com sucesso!';
+      }
 
       localStorage.setItem('data', JSON.stringify(parts));
-
-      this.successMessage = 'Parte cadastrada com sucesso!';
 
       setTimeout(() => {
         this.successMessage = null;
@@ -72,5 +77,19 @@ export class Registration {
   loadRegisteredParts() {
     const storedData = localStorage.getItem('data');
     this.registeredParts = storedData ? JSON.parse(storedData) : [];
+  }
+
+  editPart(index: number) {
+    const part = this.registeredParts[index];
+    this.partsForm.patchValue(part);
+    this.editingIndex = index;
+  }
+
+  deletePart(index: number) {
+    if (confirm('Deseja realmente excluir esta parte?')) {
+      this.registeredParts.splice(index, 1);
+      localStorage.setItem('data', JSON.stringify(this.registeredParts));
+      this.loadRegisteredParts();
+    }
   }
 }
