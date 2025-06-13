@@ -1,0 +1,41 @@
+<main class="p-7">
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y-2 divide-gray-200">
+      <thead class="ltr:text-left rtl:text-right">
+        <tr class="font-medium text-gray-900">
+          <th class="px-3 py-2 whitespace-nowrap">Código da Unidade</th>
+          <th class="px-3 py-2 whitespace-nowrap">Assuntos Principais</th>
+          <th class="px-3 py-2 whitespace-nowrap">Classe Judicial</th>
+          <th class="px-3 py-2 whitespace-nowrap">Grau</th>
+          <th class="px-3 py-2 whitespace-nowrap">Justiça</th>
+        </tr>
+      </thead>
+
+      <tbody class="divide-y divide-gray-200">
+        <tr *ngFor="let item of data">
+          <td class="px-3 py-2 whitespace-nowrap">
+            {{ item.orgaoJulgador?.codigo }}
+          </td>
+          <td class="px-3 py-2 whitespace-nowrap">
+            <ul class="list-disc list-inside space-y-1">
+              <li *ngFor="let assunto of item.assuntos">{{ assunto.nome }}</li>
+            </ul>
+          </td>
+          <td class="px-3 py-2 whitespace-nowrap">{{ item.classe?.nome }}</td>
+          <td class="px-3 py-2 whitespace-nowrap">{{ item.grau }}</td>
+          <td class="px-3 py-2 whitespace-nowrap">
+            {{ item.tribunal.startsWith('TRF') ? 'Justiça Federal' : 'Justiça
+            Estadual' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    *ngIf="error"
+    class="text-red-500 mt-4 p-2 border border-red-300 rounded"
+  >
+    Ocorreu um erro ao buscar os dados. Por favor, tente novamente mais tarde.
+  </div>
+</main>
