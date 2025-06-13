@@ -1,0 +1,31 @@
+<div class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
+  <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-2xl">
+    <h2 class="text-2xl font-semibold mb-4">Detalhes do Processo</h2>
+
+    <p><strong>Número do Processo:</strong> {{ process.numeroProcesso }}</p>
+    <p><strong>Classe Judicial:</strong> {{ process.classe?.nome }}</p>
+    <p><strong>Grau:</strong> {{ process.grau }}</p>
+    <p>
+      <strong>Justiça:</strong>
+      {{ process.tribunal.startsWith('TRF') ? 'Federal' : 'Estadual' }}
+    </p>
+    <p><strong>Órgão Julgador:</strong> {{ process.orgaoJulgador?.nome }}</p>
+    <p>
+      <strong>Data de Ajuizamento:</strong> {{ process.dataAjuizamento | date }}
+    </p>
+
+    <div class="mt-4">
+      <strong>Assuntos:</strong>
+      <ul class="list-disc pl-5">
+        <li *ngFor="let assunto of process.assuntos">{{ assunto.nome }}</li>
+      </ul>
+    </div>
+
+    <button
+      class="mt-6 inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 cursor-pointer"
+      (click)="close()"
+    >
+      Fechar
+    </button>
+  </div>
+</div>
