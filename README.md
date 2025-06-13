@@ -142,7 +142,7 @@ git clone git@github.com:Fransuelton/teste-incaas.git
 2. Navegue até o diretório do projeto:
 
 ```bash
-cd datajud-cnj-angular
+cd teste-incaas
 ```
 3. Instale as dependências:
 
