@@ -1,4 +1,44 @@
 <main class="p-7">
+  <div
+    class="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+  >
+    <div class="flex gap-4">
+      <label for="grau-select" class="sr-only">Filtrar por Grau</label>
+      <select
+        id="grau-select"
+        [(ngModel)]="selectedGrau"
+        (change)="applyFilters()"
+        class="p-2 border rounded"
+        aria-label="Filtrar por Grau"
+      >
+        <option value="">Todos os Graus</option>
+        <option value="G1">Grau 1</option>
+        <option value="G2">Grau 2</option>
+        <option value="JE">Juizado Especial</option>
+      </select>
+
+      <label for="justica-select" class="sr-only">Filtrar por Justiça</label>
+      <select
+        id="justica-select"
+        [(ngModel)]="selectedJustica"
+        (change)="applyFilters()"
+        class="p-2 border rounded"
+        aria-label="Filtrar por Justiça"
+      >
+        <option value="">Todas as Justiças</option>
+        <option value="Federal">Justiça Federal</option>
+        <option value="Estadual">Justiça Estadual</option>
+      </select>
+    </div>
+
+    <button
+      (click)="toggleSort()"
+      class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 cursor-pointer"
+    >
+      Ordenar por Nº de Assuntos: {{ sortDesc ? 'Decrescente' : 'Crescente' }}
+    </button>
+  </div>
+
   <div class="overflow-x-auto">
     <table class="min-w-full divide-y-2 divide-gray-200">
       <thead class="ltr:text-left rtl:text-right">
@@ -12,7 +52,11 @@
       </thead>
 
       <tbody class="divide-y divide-gray-200">
-        <tr *ngFor="let item of data">
+        <tr
+          *ngFor="let item of filteredData"
+          (click)="openModal(item)"
+          class="cursor-pointer hover:bg-gray-100 transition"
+        >
           <td class="px-3 py-2 whitespace-nowrap">
             {{ item.orgaoJulgador?.codigo }}
           </td>
@@ -38,3 +82,9 @@
     Ocorreu um erro ao buscar os dados. Por favor, tente novamente mais tarde.
   </div>
 </main>
+
+<app-listing-modal
+  *ngIf="showModal"
+  [process]="selectedProcess"
+  [close]="closeModal.bind(this)"
+></app-listing-modal>
