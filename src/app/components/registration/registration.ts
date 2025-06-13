@@ -15,6 +15,9 @@ import { Mask } from '../../services/mask';
 })
 export class Registration {
   constructor(private Mask: Mask) {}
+
+  successMessage: string | null = null;
+
   partsForm = new FormGroup({
     fullName: new FormControl('', [
       Validators.required,
@@ -32,7 +35,22 @@ export class Registration {
 
   onSubmit() {
     if (this.partsForm.valid) {
-      console.log(this.partsForm.value);
+      console.log(this.partsForm.value); //remove
+
+      const newPart = this.partsForm.value;
+
+      const storedData = localStorage.getItem('data');
+      const parts = storedData ? JSON.parse(storedData) : [];
+
+      parts.push(newPart);
+
+      localStorage.setItem('data', JSON.stringify(parts));
+
+      this.successMessage = 'Parte cadastrada com sucesso!';
+
+      setTimeout(() => {
+        this.successMessage = null;
+      }, 3000);
 
       this.partsForm.reset();
     } else {
