@@ -2,11 +2,9 @@
 
 Projeto desenvolvido como parte de um **desafio técnico**, com o objetivo de criar uma aplicação Angular para **cadastro de partes interessadas** e **consulta de processos judiciais** através da **API pública do CNJ (DataJud)**.
 
----
-
 ## 🚀 Funcionalidades Implementadas
 
-### 1. 🙎‍♂️ Cadastro de Partes Interessadas
+### 1. 👤 Cadastro de Partes Interessadas
 - Formulário com os campos:
   - Nome completo
   - Tipo de pessoa (Física ou Jurídica)
@@ -68,15 +66,18 @@ Projeto desenvolvido como parte de um **desafio técnico**, com o objetivo de cr
 src/
 ├── app/
 │   ├── components/
+│   │   ├── footer/
+│   │   ├── header/
 │   │   ├── home/
-│   │   ├── registration/
 │   │   ├── listing/
-│   │   ├── details/
+│   │   ├── listing-modal/
+│   │   ├── registration/
 │   ├── services/
 │   │   └── data-jud.ts
+│   │   └── mask.ts
 │   └── app.routes.ts
-├── assets/
-│   └── favicon.ico
+│   └── app.html
+│   └── app.ts
 ```
 
 ---
@@ -99,27 +100,31 @@ src/
 
 ### Passos:
 
+1. Clone o repositório:
+
 ```bash
-# 1. Clone o repositório
-git clone https://github.com/seu-usuario/datajud-cnj-angular.git
+git clone git@github.com:Fransuelton/teste-incaas.git
+```
+2. Navegue até o diretório do projeto:
+
+```bash
 cd datajud-cnj-angular
+```
+3. Instale as dependências:
 
-# 2. Instale as dependências
+```bash
 npm install
+```
+4. Execute o servidor de desenvolvimento:
 
-# 3. Execute o servidor de desenvolvimento
+```bash
 ng serve
+```
+5. Acesse a aplicação no navegador:
 
-# 4. Acesse no navegador
+```
 http://localhost:4200
 ```
-
----
-
-## 🔐 Segurança
-
-- Mesmo que a **API pública do CNJ** não exija autenticação sensível, a **chave de acesso** foi armazenada de forma isolada no serviço.
-- Nenhum dado sensível ou login de usuário é utilizado na aplicação.
 
 ---
 
@@ -128,12 +133,10 @@ http://localhost:4200
 - **API Pública do CNJ – DataJud**  
   Documentação: [https://datajud-wiki.cnj.jus.br/api-publica/endpoints](https://datajud-wiki.cnj.jus.br/api-publica/endpoints)
 
----
-
 ## 📄 Licença
 
 Este projeto é apenas para fins de avaliação técnica e aprendizado.
 
-## 👤 Autor
+## 👨‍💻 Autor
 
 ![](./.github/readme/author-card.png)
