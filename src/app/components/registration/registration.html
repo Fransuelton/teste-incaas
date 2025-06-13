@@ -1,17 +1,72 @@
-<form>
-    <label for="fullName">Nome Completo</label>
-    <input type="text" name="fullName" id="fullName">
+<form [formGroup]="partsForm" (ngSubmit)="onSubmit()">
+  <label for="fullName">Nome Completo</label>
+  <input
+    type="text"
+    name="fullName"
+    id="fullName"
+    formControlName="fullName"
+    pattern="^[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)+$"
+    placeholder="Ex: João da Silva"
+    required
+  />
+  <div
+    *ngIf="partsForm.get('fullName')?.invalid && partsForm.get('fullName')?.touched"
+    class="text-red-500"
+  >
+    Por favor preencha com seu nome completo
+  </div>
 
-    <select name="personType" id="personType" title="personType">
-        <option value="">Pessoa Física</option>
-        <option value="">Pessoa Jurídica</option>
-    </select>
+  <select
+    name="personType"
+    id="personType"
+    title="personType"
+    formControlName="personType"
+    required
+  >
+    <option value="" selected disabled>Selecione o tipo de pessoa</option>
+    <option value="individual">Pessoa Física</option>
+    <option value="company">Pessoa Jurídica</option>
+  </select>
+  <div
+    *ngIf="partsForm.get('personType')?.invalid && partsForm.get('personType')?.touched"
+    class="text-red-500"
+  >
+    Por favor selecione uma opção válida
+  </div>
 
-    <label for="cpf-cnpj">CPF ou CNPJ</label>
-    <input type="text" name="cpf-cnpj" id="cpf-cnpj">
+  <label for="cpfcnpj">CPF ou CNPJ</label>
+  <input
+    type="text"
+    name="cpfcnpj"
+    id="cpfcnpj"
+    formControlName="cpfcnpj"
+     (input)="onCpfCnpjInput($event)"
+    placeholder="Ex: 000.000.000-00"
+    required
+  />
+  <div
+    *ngIf="partsForm.get('cpfcnpj')?.invalid && partsForm.get('cpfcnpj')?.touched"
+    class="text-red-500"
+  >
+    CPF ou CNPJ Inválidos
+  </div>
 
-    <label for="email">E-mail</label>
-    <input type="email" name="email" id="email">
+  <label for="email">E-mail</label>
+  <input
+    type="email"
+    name="email"
+    id="email"
+    formControlName="email"
+    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+    placeholder="Ex: joao@exemplo.com"
+    required
+  />
+  <div
+    *ngIf="partsForm.get('email')?.invalid && partsForm.get('email')?.touched"
+    class="text-red-500"
+  >
+    E-mail inválido
+  </div>
 
-    <button type="button">Cadastrar</button>
+  <button type="submit">Cadastrar</button>
 </form>
