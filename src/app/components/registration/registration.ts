@@ -18,6 +18,8 @@ export class Registration {
 
   successMessage: string | null = null;
 
+  registeredParts: any[] = [];
+
   partsForm = new FormGroup({
     fullName: new FormControl('', [
       Validators.required,
@@ -35,8 +37,6 @@ export class Registration {
 
   onSubmit() {
     if (this.partsForm.valid) {
-      console.log(this.partsForm.value); //remove
-
       const newPart = this.partsForm.value;
 
       const storedData = localStorage.getItem('data');
@@ -52,6 +52,7 @@ export class Registration {
         this.successMessage = null;
       }, 3000);
 
+      this.loadRegisteredParts();
       this.partsForm.reset();
     } else {
       this.partsForm.markAllAsTouched();
@@ -62,5 +63,14 @@ export class Registration {
     const value = event.target.value;
     const masked = this.Mask.formatCpfCnpj(value);
     this.partsForm.get('cpfcnpj')?.setValue(masked, { emitEvent: false });
+  }
+
+  ngOnInit() {
+    this.loadRegisteredParts();
+  }
+
+  loadRegisteredParts() {
+    const storedData = localStorage.getItem('data');
+    this.registeredParts = storedData ? JSON.parse(storedData) : [];
   }
 }

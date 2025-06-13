@@ -123,11 +123,17 @@
       </thead>
 
       <tbody class="divide-y divide-gray-200">
-        <tr class="*:text-gray-900 *:first:font-medium">
-          <td class="px-3 py-2 whitespace-nowrap">João da Silva</td>
-          <td class="px-3 py-2 whitespace-nowrap">Pessoa Física</td>
-          <td class="px-3 py-2 whitespace-nowrap">123.456.789-01</td>
-          <td class="px-3 py-2 whitespace-nowrap">joaoexample.com</td>
+        <tr
+          class="*:text-gray-900 *:first:font-medium"
+          *ngFor="let part of registeredParts; let i = index"
+        >
+          <td class="px-3 py-2 whitespace-nowrap">{{ part.fullName }}</td>
+          <td class="px-3 py-2 whitespace-nowrap">
+            {{ part.personType === 'individual' ? 'Pessoa Física' : 'Pessoa
+            Jurídica' }}
+          </td>
+          <td class="px-3 py-2 whitespace-nowrap">{{ part.cpfcnpj }}</td>
+          <td class="px-3 py-2 whitespace-nowrap">{{ part.email }}</td>
           <td>
             <span
               class="inline-flex divide-x divide-gray-300 overflow-hidden rounded border border-gray-300 bg-white shadow-sm"
