@@ -54,6 +54,8 @@ Projeto desenvolvido como parte de um **desafio técnico**, com o objetivo de cr
 
 ## 🛠️ Tecnologias Utilizadas
 
+[![Stack](https://skillicons.dev/icons?i=angular,html,css,tailwind,ts)](https://skillicons.dev)
+
 | Tecnologia        | Uso |
 |-------------------|-----|
 | Angular 20       | Estrutura principal da aplicação |
@@ -91,8 +93,8 @@ O proxy foi configurado no arquivo `proxy.conf.json` com:
 
 Com essa configuração:
 
-- Qualquer requisição feita para /api/... será redirecionada para o endpoint real do CNJ.
-- Exemplo: /api/api_publica_trf1/_search será transformado em https://api-publica.datajud.cnj.jus.br/api_publica_trf1/_search.
+- Qualquer requisição feita para `/api/...` será redirecionada para o endpoint real do CNJ.
+- Exemplo: `/api/api_publica_trf1/_search` será transformado em `https://api-publica.datajud.cnj.jus.br/api_publica_trf1/_search`.
 
 ## 📁 Estrutura de Pastas (resumida)
 
