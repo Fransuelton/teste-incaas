@@ -46,6 +46,12 @@ Projeto desenvolvido como parte de um **desafio técnico**, com o objetivo de cr
 
 ---
 
+## 📌 Decisões de Implementação
+
+- O uso de Tailwind CSS permitiu prototipação rápida e responsiva.
+- A estrutura de serviços (DataJudService) separa a lógica de API, garantindo maior organização e testabilidade.
+- O filtro e ordenação foram aplicados no frontend, pois o endpoint consumido não oferece esses recursos via query parameters.
+
 ## 🛠️ Tecnologias Utilizadas
 
 | Tecnologia        | Uso |
@@ -58,7 +64,35 @@ Projeto desenvolvido como parte de um **desafio técnico**, com o objetivo de cr
 | TypeScript        | Tipagem e lógica |
 | localStorage      | Persistência local dos cadastros |
 
----
+## 🛡️ CORS e Proxy
+
+A API do CNJ não permite requisições diretas do navegador devido às restrições de CORS (Cross-Origin Resource Sharing). Isso impede que o front-end Angular acesse diretamente a API, pois navegadores bloqueiam chamadas para domínios diferentes que não estejam explicitamente autorizados pelo servidor.
+
+### ✅ Solução Implementada
+
+Para contornar essa limitação durante o desenvolvimento, foi utilizado o recurso de proxy reverso do Angular. Isso permite que o Angular redirecione localmente as chamadas para a API como se fossem feitas ao mesmo domínio de origem.
+
+### 🔧 Configuração do Proxy
+
+O proxy foi configurado no arquivo `proxy.conf.json` com:
+
+```json
+{
+  "/api": {
+    "target": "https://api-publica.datajud.cnj.jus.br",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}
+```
+
+Com essa configuração:
+
+- Qualquer requisição feita para /api/... será redirecionada para o endpoint real do CNJ.
+- Exemplo: /api/api_publica_trf1/_search será transformado em https://api-publica.datajud.cnj.jus.br/api_publica_trf1/_search.
 
 ## 📁 Estrutura de Pastas (resumida)
 
@@ -79,8 +113,6 @@ src/
 │   └── app.html
 │   └── app.ts
 ```
-
----
 
 ## 📌 Rotas da Aplicação
 
